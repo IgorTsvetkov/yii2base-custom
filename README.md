@@ -6,3 +6,5 @@
 <code>composer install</code>
 <h4>Step 3</h4>
 <p>Restart openserver</p>
+---
+<p>Ready</p>
