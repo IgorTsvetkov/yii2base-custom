@@ -88,22 +88,16 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-    public function actionQuery()
-    {
-        $connection=Yii::$app->getDb();
-        $user=$connection->createCommand("INSERT INTO user (id,username,password) values ('10','asdf','asdf')");
-        $user->execute();
-    }
     public function actionRegistration()
     {
         $model = new SignUpForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $user=new User();
             $user->username=$model->username;
-            $user->password=$model->password;
-            // $user->authKey=Yii::$app->security->generateRandomKey();
-            
+            $user->passwordHash=Yii::$app->security->generatePasswordHash($model->password);
+            $user->authKey=Yii::$app->security->generateRandomString();            
             $user->save();
+            Yii::$app->user->login($user);
             return $this->goBack();
         }
         return $this->render('registration', [

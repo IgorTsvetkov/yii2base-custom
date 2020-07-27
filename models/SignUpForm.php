@@ -17,7 +17,7 @@ class SignUpForm extends Model{
         return [
             [["username","password","password_repeat"],"required"],
             ["username","unique","targetClass"=>"\app\models\User"],
-            [["username","password"],"string","min"=>6,"max"=>12],
+            [["username","password"],"string","min"=>6,"max"=>24],
             ["password","compare"]
         ];
     }
