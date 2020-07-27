@@ -3,12 +3,15 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use yii\web\Controller;
+use yii\db\Query;
+use app\models\User;
 use yii\web\Response;
-use yii\filters\VerbFilter;
+use yii\web\Controller;
 use app\models\LoginForm;
+use app\models\SignUpForm;
 use app\models\ContactForm;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class SiteController extends Controller
 {
@@ -82,6 +85,28 @@ class SiteController extends Controller
 
         $model->password = '';
         return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+    public function actionQuery()
+    {
+        $connection=Yii::$app->getDb();
+        $user=$connection->createCommand("INSERT INTO user (id,username,password) values ('10','asdf','asdf')");
+        $user->execute();
+    }
+    public function actionRegistration()
+    {
+        $model = new SignUpForm();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user=new User();
+            $user->username=$model->username;
+            $user->password=$model->password;
+            // $user->authKey=Yii::$app->security->generateRandomKey();
+            
+            $user->save();
+            return $this->goBack();
+        }
+        return $this->render('registration', [
             'model' => $model,
         ]);
     }
