@@ -15,10 +15,10 @@ class SignUpForm extends Model{
     // }
     public function rules(){
         return [
-            [["username","password"],"required"],
+            [["username","password","password_repeat"],"required"],
             ["username","unique","targetClass"=>"\app\models\User"],
             [["username","password"],"string","min"=>6,"max"=>12],
-            // ["password","compare","compareAttribute"=>"password_repeat"]
+            ["password","compare"]
         ];
     }
 }
