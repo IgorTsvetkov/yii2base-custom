@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\db\Query;
 use app\models\User;
 use yii\web\Response;
 use yii\web\Controller;
