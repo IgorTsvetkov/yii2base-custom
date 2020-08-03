@@ -78,7 +78,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post(),"") && $model->login()) {
             return $this->goBack();
         }
 
@@ -90,7 +90,7 @@ class SiteController extends Controller
     public function actionRegistration()
     {
         $model = new SignUpForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post(),"") && $model->validate()) {
             $user=new User();
             $user->username=$model->username;
             $user->passwordHash=Yii::$app->security->generatePasswordHash($model->password);
